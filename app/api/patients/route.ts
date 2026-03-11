@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
     query = db
       .from("patients")
       .select(
-        "id, uhid, full_name, phone, email, city, patient_type, is_active, created_at",
+        "id, uhid, full_name, date_of_birth, gender, phone, email, city, patient_type, is_active, created_at",
         { count: "exact" },
       )
       .eq("is_active", true)

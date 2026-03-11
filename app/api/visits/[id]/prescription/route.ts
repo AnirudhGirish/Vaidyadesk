@@ -109,6 +109,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     .single();
 
   if (error) {
+    console.error("Prescription save error:", error);
     return errorResponse(
       ErrorCodes.INTERNAL_ERROR,
       "Failed to save prescription",

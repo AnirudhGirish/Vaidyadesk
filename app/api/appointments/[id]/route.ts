@@ -151,27 +151,33 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     );
   }
 
-  // If status changed to 'arrived', create a visit for today
-  if (result.data.status === "arrived") {
-    const appointmentData = appointment as { patient_id: string };
+  const updatedAppointment = appointment as { status: string; patient_id: string; appointment_time: string };
+
+  // If status changed to 'arrived', ensure patient is in today's queue
+  if (updatedAppointment.status === "arrived") {
     const today = new Date().toISOString().split("T")[0];
 
-    // Check if visit already exists today
+    // Check if patient is already actively in the queue today
     const { data: existingVisit } = await db
       .from("visits")
       .select("id")
-      .eq("patient_id", appointmentData.patient_id)
+      .eq("patient_id", updatedAppointment.patient_id)
       .eq("visit_date", today)
-      .single();
+      .in("status", ["waiting", "with_doctor"])
+      .maybeSingle();
 
     if (!existingVisit) {
-      await db.from("visits").insert({
-        patient_id: appointmentData.patient_id,
+      const { error: insertErr } = await db.from("visits").insert({
+        patient_id: updatedAppointment.patient_id,
         visit_date: today,
+        visit_time: updatedAppointment.appointment_time || null,
         visit_type: "appointment",
         status: "waiting",
         created_by: auth.userId,
       } as never);
+      if (insertErr) {
+        console.error("Auto queue add error:", insertErr);
+      }
     }
   }
 

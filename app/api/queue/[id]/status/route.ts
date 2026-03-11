@@ -71,11 +71,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
   // Validate role-based status transitions
   if (auth.profile.role === "frontdesk") {
-    const allowedStatuses = ["waiting", "arrived"];
+    const allowedStatuses = ["waiting", "arrived", "with_doctor", "completed"];
     if (!allowedStatuses.includes(result.data.status)) {
       return errorResponse(
         ErrorCodes.FORBIDDEN,
-        "Frontdesk can only set status to waiting or arrived",
+        "Frontdesk cannot cancel visits — only doctors can",
         403,
       );
     }

@@ -22,7 +22,14 @@ export default function AuthRedirectPage() {
           return;
         }
 
-        const data: SessionData = await response.json();
+        const json = await response.json();
+
+        if (!json.success || !json.data) {
+          router.push("/login?error=profile_failed");
+          return;
+        }
+
+        const data: SessionData = json.data;
 
         // Redirect based on role
         if (data.role === "doctor") {

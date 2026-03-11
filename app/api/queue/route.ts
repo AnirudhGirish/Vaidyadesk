@@ -121,14 +121,14 @@ export async function POST(request: NextRequest) {
 
   const today = new Date().toISOString().split("T")[0];
 
-  // Check if patient already in queue today
+  // Check if patient already actively in queue today
   const { data: existingVisit } = await db
     .from("visits")
     .select("id, status")
     .eq("patient_id", result.data.patient_id)
     .eq("visit_date", today)
-    .neq("status", "cancelled")
-    .single();
+    .in("status", ["waiting", "with_doctor"])
+    .maybeSingle();
 
   if (existingVisit) {
     return errorResponse(
@@ -144,9 +144,9 @@ export async function POST(request: NextRequest) {
     .insert({
       patient_id: result.data.patient_id,
       visit_date: today,
-      visit_time: result.data.visit_time ?? null,
+      visit_time: result.data.visit_time ? result.data.visit_time : null,
       visit_type: result.data.visit_type,
-      chief_complaint: result.data.chief_complaint ?? null,
+      chief_complaint: result.data.chief_complaint || null,
       status: "waiting",
       created_by: auth.userId,
     } as never)
