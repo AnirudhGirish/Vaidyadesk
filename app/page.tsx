@@ -739,16 +739,38 @@ export default function LandingPage() {
               Vaidya Desk
             </span>
           </div>
-          <p className="text-xs text-center" style={{ color: 'rgba(255,255,255,0.3)' }}>
-            © 2026 Dr. Shetty&apos;s Ayur Clinic. Built by SynkBuilds. All rights reserved.
-          </p>
-          <Link
-            href="/login"
-            className="text-xs font-medium"
-            style={{ color: 'var(--color-gold-400)', textDecoration: 'none' }}
-          >
-            Staff Login →
-          </Link>
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+            <p className="text-xs text-center" style={{ color: 'rgba(255,255,255,0.3)' }}>
+              © 2026 Dr. Shetty&apos;s Ayur Clinic. Built by SynkBuilds. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <Link
+                href="/privacy"
+                className="text-xs font-medium transition-colors"
+                style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.4)'}
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="text-xs font-medium transition-colors"
+                style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.4)'}
+              >
+                Terms of Service
+              </Link>
+              <Link
+                href="/login"
+                className="text-xs font-medium"
+                style={{ color: 'var(--color-gold-400)', textDecoration: 'none' }}
+              >
+                Staff Login →
+              </Link>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

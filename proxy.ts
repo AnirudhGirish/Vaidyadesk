@@ -51,7 +51,10 @@ export async function proxy(request: NextRequest) {
     path.startsWith("/api/auth") ||
     path === "/" ||
     path.startsWith("/_next") ||
-    path.includes("favicon");
+    path.includes("favicon") ||
+    path.startsWith("/auth/") ||
+    path === "/privacy" ||
+    path === "/terms";
 
   const isApiPath = path.startsWith("/api/");
 
