@@ -63,9 +63,9 @@ export default function PrivacyPage() {
           </p>
         </div>
 
-        <div 
+        <div
           className="prose prose-sm md:prose-base max-w-none"
-          style={{ 
+          style={{
             color: 'rgba(44,44,44,0.8)',
             '--tw-prose-headings': 'var(--color-forest-700)',
             '--tw-prose-links': 'var(--color-gold-600)',
@@ -110,8 +110,8 @@ export default function PrivacyPage() {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 text-center" style={{ borderTop: '1px solid var(--color-warm-200)', background: 'white' }}>
-        <p className="text-xs" style={{ color: 'rgba(44,44,44,0.4)' }}>
+      <footer className="py-8 text-center" style={{ background: 'var(--color-forest-900)', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <p className="text-xs text-yellow-600">
           © 2026 Vaidya Desk. Engineered by SynkBuilds. All rights reserved.
         </p>
       </footer>
